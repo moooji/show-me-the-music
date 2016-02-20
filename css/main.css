@@ -23,6 +23,10 @@ header h1 {
   letter-spacing: -0.2rem;
 }
 
+h4 {
+  margin: 0;
+}
+
 .main {
   padding: 160px;
 }
@@ -31,6 +35,10 @@ header h1 {
 	position: relative;
 	display: block;
   max-width: 40%
+}
+
+input[type="submit"] {
+  margin-top: 30px;
 }
 
 input[type="text"] {
