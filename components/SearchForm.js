@@ -27,7 +27,7 @@ const SearchForm = React.createClass({
     return (
       <div className="search-form">
         <h3>{this.props.message}</h3>
-        <form onSubmit={this._login}>
+        <form onSubmit={this._search}>
           <input type="text" placeholder="Enter a song, album or playlist." ref="query"/>
           <input type="submit" value="SEARCH"/>
         </form>

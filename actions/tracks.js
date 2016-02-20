@@ -4,58 +4,35 @@ export const UPDATE_TRACK = 'UPDATE_TRACK';
 export const REQUEST_TRACK = 'REQUEST_TRACK';
 export const RECEIVE_TRACK = 'RECEIVE_TRACK';
 
-export function updateTrack(json) {
+function updateTrack(json) {
   return {
     type: UPDATE_TRACK,
-    item: json,
-    receivedAt: Date.now(),
+    data: json,
   };
 }
 
-function requestTrack() {
+function requestTrack(id) {
   return {
     type: REQUEST_TRACK,
+    id,
   };
 }
 
 function receiveTrack(json) {
   return {
     type: RECEIVE_TRACK,
-    items: json,
-    receivedAt: Date.now(),
+    data: json,
   };
 }
 
-function fetchTrack() {
+export function fetchTrack(id) {
   return dispatch => {
-    dispatch(requestTrack());
+    dispatch(requestTrack(id));
 
-    return vendo.getScreen()
-      .then(json => dispatch(receiveScreen(json)))
+    return echonest.getTrack(id)
+      .then(json => dispatch(receiveTrack(json)))
       .catch(err => {
         throw err;
       });
-  };
-}
-
-function shouldFetchScreen(state) {
-  const screen = state.screen;
-
-  if (!screen) {
-    return true;
-  }
-
-  if (screen.isFetching) {
-    return false;
-  }
-
-  return screen.didInvalidate;
-}
-
-export function fetchScreenIfNeeded() {
-  return (dispatch, getState) => {
-    if (shouldFetchScreen(getState())) {
-      return dispatch(fetchScreen());
-    }
   };
 }

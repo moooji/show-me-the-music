@@ -13,15 +13,16 @@ const App = React.createClass({
   },
 
   _onSearch(query) {
-    console.log(query);
+    this.props.dispatch(fetchTrack(query));
   },
 
   render() {
     return (
       <div className="main">
-        <header className="navigation">
+        <header>
+          <h1>Show<br/>me the music.</h1>
         </header>
-        <SearchForm isLoading={false}/>
+        <SearchForm isLoading={false} onSearch={this._onSearch}/>
         {this.props.children}
         <footer className="footer section">
           <div className="footer-message">Copyright 2016 - Steffen Strätz</div>
