@@ -12,6 +12,9 @@ const SearchForm = React.createClass({
     message: React.PropTypes.string,
   },
   mixins: [PureRenderMixin],
+  getInitialState() {
+    return { query: '' };
+  },
 
   _search(e) {
     e.preventDefault();
@@ -19,17 +22,25 @@ const SearchForm = React.createClass({
     this.props.onSearch(query);
   },
 
+  _onChange(e) {
+    const query = e.target.value;
+    this.setState({ query });
+  },
+
   renderForm() {
     if (this.props.isLoading) {
       return (null);
     }
 
+    const isFilled = this.state.query.length > 0;
+    const inputClass = isFilled ? 'input input-filled' : 'input';
+
     return (
       <div className="search-form">
         <h3>{this.props.message}</h3>
         <form onSubmit={this._search}>
-          <span className="input">
-            <input className="input-field" type="text" id="search-input" ref="query"/>
+          <span className={inputClass}>
+            <input type="text" id="search-input" ref="query" onChange={this._onChange}/>
             <label className="input-label" htmlFor="search-input">
               <span className="input-label-content">Enter a song, album or playlist</span>
             </label>

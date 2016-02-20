@@ -33,7 +33,7 @@ header h1 {
   max-width: 40%
 }
 
-.input-field {
+input[type="text"] {
 	position: relative;
 	display: block;
 	float: right;
@@ -48,7 +48,7 @@ header h1 {
   font-family: 'proxima-nova';
 }
 
-.input-field:focus {
+input[type="text"]:focus {
 	outline: none;
 }
 
@@ -98,14 +98,14 @@ header h1 {
 	transition: transform 0.3s, color 0.3s;
 }
 
-.input-field:focus + .input-label::after,
+input[type="text"]:focus + .input-label::after,
 .input-filled .input-label::after {
 	background: #a3d39c;
 	-webkit-transform: scale3d(1, 0.25, 1);
 	transform: scale3d(1, 0.25, 1);
 }
 
-.input-field:focus + .input-label .input-label-content,
+input[type="text"]:focus + .input-label .input-label-content,
 .input-filled .input-label .input-label-content {
 	color: #a3d39c;
 	-webkit-transform: translate3d(0, 2em, 0) scale3d(0.655, 0.655, 1);
