@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DevTools from './DevTools';
 import SearchForm from '../components/SearchForm';
-import { fetchTrack } from '../actions/tracks';
+import { fetchSong } from '../actions/songs';
 import '../css/main.css';
 
 const App = React.createClass({
@@ -13,7 +13,7 @@ const App = React.createClass({
   },
 
   _onSearch(query) {
-    this.props.dispatch(fetchTrack(query));
+    this.props.dispatch(fetchSong(query));
   },
 
   render() {

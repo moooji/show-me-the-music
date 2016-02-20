@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createHistory } from 'history';
 
 import App from './containers/App';
-import Track from './containers/Track';
+import Song from './containers/Song';
 import configureStore from './store';
 
 const store = configureStore();
@@ -15,8 +15,8 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={Track}/>
-        <Route path="track/:trackId" component={Track}/>
+        <IndexRoute component={Song}/>
+        <Route path="song/:songId" component={Song}/>
       </Route>
     </Router>
   </Provider>,

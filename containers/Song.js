@@ -4,18 +4,18 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { connect } from 'react-redux';
 
-const Track = React.createClass({
+const Song = React.createClass({
   propTypes: {
     track: React.PropTypes.object,
   },
   mixins: [PureRenderMixin],
 
   render() {
-    const { track } = this.props;
+    const { song } = this.props;
 
     return (
       <section className="track-container">
-        <h1>{track.name || 'No track'}</h1>
+        <h1>{song.name || 'No song'}</h1>
       </section>
     );
   },
@@ -23,12 +23,12 @@ const Track = React.createClass({
 
 function mapStateToProps(state, props) {
   console.log(props);
-  const trackId = '';
-  const track = state.tracks.items[trackId] || {};
+  const songId = '';
+  const song = state.songs.items[songId] || {};
 
   return {
-    track,
+    song,
   };
 }
 
-export default connect(mapStateToProps)(Track);
+export default connect(mapStateToProps)(Song);
