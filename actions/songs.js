@@ -18,10 +18,11 @@ function requestSong(id) {
   };
 }
 
-function receiveSong(json) {
+function receiveSong(id, json) {
   return {
     type: RECEIVE_SONG,
     data: json,
+    id,
   };
 }
 
@@ -30,7 +31,7 @@ export function fetchSong(id) {
     dispatch(requestSong(id));
 
     return api.getSong(id)
-      .then(json => dispatch(receiveSong(json)))
+      .then(json => dispatch(receiveSong(id, json)))
       .catch(err => {
         throw err;
       });

@@ -15,7 +15,6 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={Song}/>
         <Route path="song/:songId" component={Song}/>
       </Route>
     </Router>

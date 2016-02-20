@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DevTools from './DevTools';
 import SearchForm from '../components/SearchForm';
-import { fetchSong } from '../actions/songs';
 import '../css/main.css';
 
 const App = React.createClass({
@@ -11,9 +10,21 @@ const App = React.createClass({
     children: React.PropTypes.array,
     dispatch: React.PropTypes.func.isRequired,
   },
+  contextTypes: {
+    router: React.PropTypes.object.isRequired,
+  },
 
   _onSearch(query) {
-    this.props.dispatch(fetchSong(query));
+    const url = `song/${query}`;
+    this.context.router.push(url);
+  },
+
+  renderForm() {
+    if (this.props.children) {
+      return (this.props.children);
+    }
+
+    return (<SearchForm isLoading={false} onSearch={this._onSearch}/>);
   },
 
   render() {
@@ -22,8 +33,7 @@ const App = React.createClass({
         <header>
           <h1>Show<br/>me the music.</h1>
         </header>
-        <SearchForm isLoading={false} onSearch={this._onSearch}/>
-        {this.props.children}
+        {this.renderForm()}
         <footer className="footer section">
           <div className="footer-message">Copyright 2016 - Steffen Strätz</div>
           <div className="footer-copyright">

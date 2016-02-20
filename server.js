@@ -20,7 +20,7 @@ if (isDevelopment) {
 
 const routes = [
   '/',
-  '/track*',
+  '/song*',
 ];
 
 app.get(routes, (req, res) => {
@@ -29,7 +29,7 @@ app.get(routes, (req, res) => {
 
 app.use('/assets', express.static(`${__dirname}/static/assets`));
 app.use('/lib', express.static(`${__dirname}/static/lib`));
-app.get('/songs/:id', (req, res) => songController.getSong(req, res));
+app.get('/api/songs/:id', (req, res) => songController.getSong(req, res));
 
 app.listen(port, (err) => {
   if (err) {
