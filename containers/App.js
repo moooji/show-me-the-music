@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import DevTools from './DevTools';
 import SearchForm from '../components/SearchForm';
 import '../css/main.css';
@@ -7,7 +8,7 @@ import '../css/main.css';
 const App = React.createClass({
   propTypes: {
     tracks: React.PropTypes.object,
-    children: React.PropTypes.array,
+    children: React.PropTypes.object,
     dispatch: React.PropTypes.func.isRequired,
   },
   contextTypes: {
@@ -15,7 +16,7 @@ const App = React.createClass({
   },
 
   _onSearch(query) {
-    const url = `song/${query}`;
+    const url = `/song/${query}`;
     this.context.router.push(url);
   },
 
@@ -24,15 +25,16 @@ const App = React.createClass({
       return (this.props.children);
     }
 
-    return (<SearchForm isLoading={false} onSearch={this._onSearch}/>);
+    //return (<SearchForm isLoading={false} onSearch={this._onSearch}/>);
   },
 
   render() {
     return (
       <div className="main">
         <header>
-          <h1>Show<br/>me the music.</h1>
+          <Link to="/"><h1>Show<br/>me the music.</h1></Link>
         </header>
+        <SearchForm isLoading={false} onSearch={this._onSearch}/>
         {this.renderForm()}
         <footer className="footer section">
           <div className="footer-message">Copyright 2016 - Steffen Strätz</div>

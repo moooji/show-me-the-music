@@ -67,6 +67,8 @@ function getSongAnalysis(id) {
 
       return axios.get(analysisUrl)
         .then(res => {
+          console.log(res.data.segments);
+          console.log(res.data.tatums);
           return {
             title: song.title,
             artist: song.artist_name,
@@ -82,6 +84,9 @@ function getSongAnalysis(id) {
             danceability: song.audio_summary.danceability,
             valence: song.audio_summary.valence,
             sections: res.data.sections,
+            numTatums: res.data.tatums.length,
+            numSegments: res.data.segments.length,
+            numBeats: res.data.beats.length,
           };
         });
     });

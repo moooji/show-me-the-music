@@ -16,6 +16,11 @@ body {
     color: #FFF;
 }
 
+a {
+  color: #FFF;
+  text-decoration: none;
+}
+
 header h1 {
   font-size: 135px;
   font-weight: 800;
@@ -23,8 +28,23 @@ header h1 {
   letter-spacing: -0.2rem;
 }
 
+h2 {
+  font-size: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
 h4 {
   margin: 0;
+}
+
+footer {
+  margin-top: 100px;
 }
 
 .main {
@@ -118,4 +138,41 @@ input[type="text"]:focus + .input-label .input-label-content,
 	color: #a3d39c;
 	-webkit-transform: translate3d(0, 2em, 0) scale3d(0.655, 0.655, 1);
 	transform: translate3d(0, 2em, 0) scale3d(0.655, 0.655, 1);
+}
+
+.search-form {
+  margin-bottom: 60px;
+}
+
+.song-section {
+  margin: 1px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.song-section-bar {
+  background-color: #1f4751;
+  vertical-align: bottom;
+}
+
+.song-section-label {
+  margin-top: 10px;
+  position: absolute;
+}
+
+.song-section-key {
+  margin-top: 25px;
+  position: absolute;
+}
+
+.song-properties ul {
+  padding: 0;
+  maring: 0;
+}
+
+.song-properties li {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0;
+  margin-right: 10px;
 }
