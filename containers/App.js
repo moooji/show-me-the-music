@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import DevTools from './DevTools';
+import TimerMixin from 'react-timer-mixin';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import SearchForm from '../components/SearchForm';
 import SearchResults from '../components/SearchResults';
 import { fetchSearch } from '../actions/search';
@@ -16,10 +18,27 @@ const App = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
   },
+  mixins: [TimerMixin, PureRenderMixin],
+
+  getInitialState() {
+    return { timer: null };
+  },
 
   _onSearch(text) {
     //const url = `/song/${query}`;
     //this.context.router.push(url);
+    if (!this.props.search.isLoading) {
+      return this._fetchSearch(text);
+    };
+
+    if (this.state.timer) {
+      this.clearTimeout(this.state.timer);
+    }
+
+    this.setState({ timer: this.setTimeout(() => this._fetchSearch(text), 20) });
+  },
+
+  _fetchSearch(text) {
     this.props.dispatch(fetchSearch(text));
   },
 

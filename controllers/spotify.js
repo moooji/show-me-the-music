@@ -5,13 +5,14 @@ const axios = require('axios');
 // const apiKey = process.env.SPOTIFY_API_KEY;
 const baseURL = 'https://api.spotify.com/v1/';
 
-function search(query) {
+function search(query, limit) {
   const options = {
     baseURL,
     url: '/search',
     params: {
       q: query,
       type: 'track',
+      limit,
     },
   };
 

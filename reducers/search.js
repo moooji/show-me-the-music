@@ -6,16 +6,20 @@ import {
 function search(state = {
   text: null,
   tracks: [],
+  isLoading: false,
 }, action) {
   switch (action.type) {
     case REQUEST_SEARCH: {
-      return state;
+      return Object.assign({}, state, {
+        isLoading: true,
+      });
     }
 
     case RECEIVE_SEARCH: {
       return Object.assign({}, state, {
         text: action.text,
         tracks: action.data.tracks,
+        isLoading: false,
       });
     }
 

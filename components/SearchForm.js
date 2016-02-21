@@ -26,8 +26,8 @@ const SearchForm = React.createClass({
     const text = e.target.value.trim();
     this.setState({ text });
 
-    if (this.props.isInstant) {
-      this.props.onSearch(this.state.text);
+    if (this.props.isInstant && text) {
+      this.props.onSearch(text);
     }
   },
 

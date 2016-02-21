@@ -20,7 +20,7 @@ const SearchResults = React.createClass({
         <li key={item.uri}>
           <Link to={`/song/${item.uri}`}>
             <img src={item.image.url} width={item.image.width / 2} height={item.image.height / 2}/>
-            {item.artists} - {item.album} - {item.title}
+            {item.artists} - {item.title}
           </Link>
         </li>
       );
