@@ -33,4 +33,20 @@ function search(query, limit) {
     });
 }
 
+function getAlbum(id) {
+  const options = {
+    baseURL,
+    url: `/albums/${id}`,
+  };
+
+  return axios(options)
+    .then((res) => {
+      const name = res.data.name;
+      const artists = res.data.artists.map((artist) => artist.name).join(', ');
+      const tracks = res.data.tracks.items.map((track) => track.uri);
+      return { name, artists, tracks };
+    });
+}
+
 module.exports.search = search;
+module.exports.getAlbum = getAlbum;

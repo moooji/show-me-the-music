@@ -6,39 +6,6 @@ const qs = require('qs');
 const apiKey = process.env.ECHONEST_API_KEY;
 const baseURL = 'http://developer.echonest.com/api/v4/';
 
-function getTrack(id) {
-  const options = {
-    baseURL,
-    url: '/track',
-    params: {
-      api_key: apiKey,
-      trackId: id,
-    },
-  };
-
-  return axios(options);
-}
-
-function searchSong(title, artist) {
-  const options = {
-    baseURL,
-    method: 'get',
-    url: '/song/search',
-    params: {
-      title,
-      artist,
-      api_key: apiKey,
-      bucket: ['audio_summary', 'tracks', 'id:spotify'],
-      results: 1,
-    },
-    paramsSerializer: (params) => {
-      return qs.stringify(params, { arrayFormat: 'repeat' });
-    },
-  };
-
-  return axios(options);
-}
-
 function profileSong(id) {
   const options = {
     baseURL,
@@ -55,22 +22,28 @@ function profileSong(id) {
     },
   };
 
-  console.log(options);
-
   return axios(options)
     .then((res) => res.data.response);
 }
 
-function getSongAnalysis(id) {
+function getSong(id) {
   return profileSong(id)
     .then((data) => {
-      console.log(data);
+      console.log(`Got song ${id}`);
+
+      if (!data.songs || !data.songs.length) {
+        console.error(`Song [${id}] not found`);
+        throw new Error('Song not found', 404);
+      }
 
       const song = data.songs.shift();
       const analysisUrl = song.audio_summary.analysis_url;
+      console.log(analysisUrl);
 
       return axios.get(analysisUrl)
         .then(res => {
+          console.log(`Got song analysis ${id}`);
+
           const segments = res.data.segments;
 
           const sections = res.data.sections.map((section) => {
@@ -124,7 +97,7 @@ function getMood(arousal, valence) {
     { id: 'excited', label: 'Excited', arousal: 1, valence: 1 },
     { id: 'happy', label: 'Happy', arousal: 0.5, valence: 1 },
     { id: 'angry', label: 'Angry', arousal: 1, valence: 0 },
-    { id: 'sleepy', label: 'Sleepy', arousal: 0, valence: 0 },
+    { id: 'drowsy', label: 'Drowsy', arousal: 0, valence: 0 },
     { id: 'sad', label: 'Sad', arousal: 0.5, valence: 0 },
     { id: 'melancholic', label: 'Melancholic', arousal: 0, valence: 0 },
     { id: 'relaxed', label: 'Relaxed', arousal: 0, valence: 0.5 },
@@ -162,7 +135,5 @@ function roundDigits(value, digits) {
   return Math.round(value * factor) / factor;
 }
 
-module.exports.getSongAnalysis = getSongAnalysis;
+module.exports.getSong = getSong;
 module.exports.profileSong = profileSong;
-module.exports.getTrack = getTrack;
-module.exports.searchSong = searchSong;

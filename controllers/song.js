@@ -4,7 +4,8 @@ const echonest = require('./echonest');
 
 function get(req, res) {
   const songId = req.params.id;
-  echonest.getSongAnalysis(songId)
+
+  echonest.getSong(songId)
     .then((data) => res.json(data))
     .catch((err) => {
       console.error(err);
