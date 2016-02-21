@@ -8,6 +8,8 @@ function get(req, res) {
 
   spotify.getAlbum(id)
     .then((data) => {
+      res.json(data);
+      /*
       const requests = data.tracks.map((songId) => {
         // Fetch song analysis
         // Skip song if it cannot be found in echonest (catch)
@@ -22,6 +24,7 @@ function get(req, res) {
         .then((analysedSongs) => {
           res.json(analysedSongs);
         });
+        */
     })
     .catch((err) => {
       console.error(err);

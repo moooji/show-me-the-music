@@ -36,7 +36,7 @@ const App = React.createClass({
   },
 
   _onSubmit(songId) {
-    const url = `/song/${songId}`;
+    const url = `/songs/${songId}`;
     this.context.router.push(url);
   },
 
@@ -64,7 +64,10 @@ const App = React.createClass({
       <div className="main">
         {this.renderForm()}
         <footer className="footer section">
-          <div className="footer-message">Copyright 2016 - Steffen Strätz</div>
+          <div className="footer-message">
+            Copyright 2016 - Steffen Strätz<br/>
+            Powered by <a href="http://the.echonest.com">The Echo Nest</a><br/><br/>
+          </div>
           <div className="footer-copyright">
             <h4>moooji.com</h4>
           </div>

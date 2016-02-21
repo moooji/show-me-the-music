@@ -1,15 +1,7 @@
 import { getSong } from '../lib/api.js';
 
-export const UPDATE_SONG = 'UPDATE_SONG';
 export const REQUEST_SONG = 'REQUEST_SONG';
 export const RECEIVE_SONG = 'RECEIVE_SONG';
-
-function updateSong(json) {
-  return {
-    type: UPDATE_SONG,
-    data: json,
-  };
-}
 
 function requestSong(id) {
   return {
