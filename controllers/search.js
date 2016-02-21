@@ -1,10 +1,10 @@
 'use strict';
 
-const echonest = require('./echonest');
+const spotify = require('./spotify');
 
 function get(req, res) {
-  const songId = req.params.id;
-  echonest.getSongAnalysis(songId)
+  const query = req.query.text;
+  spotify.search(query)
     .then((data) => res.json(data))
     .catch((err) => {
       console.error(err);

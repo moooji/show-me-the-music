@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import DevTools from './DevTools';
 import SearchForm from '../components/SearchForm';
+import SearchResults from '../components/SearchResults';
+import { fetchSearch } from '../actions/search';
 import '../css/main.css';
 
 const App = React.createClass({
   propTypes: {
-    tracks: React.PropTypes.object,
+    search: React.PropTypes.object,
     children: React.PropTypes.object,
     dispatch: React.PropTypes.func.isRequired,
   },
@@ -15,9 +17,10 @@ const App = React.createClass({
     router: React.PropTypes.object.isRequired,
   },
 
-  _onSearch(query) {
-    const url = `/song/${query}`;
-    this.context.router.push(url);
+  _onSearch(text) {
+    //const url = `/song/${query}`;
+    //this.context.router.push(url);
+    this.props.dispatch(fetchSearch(text));
   },
 
   renderForm() {
@@ -30,7 +33,8 @@ const App = React.createClass({
         <header>
           <Link to="/"><h1>Show<br/>me the music.</h1></Link>
         </header>
-        <SearchForm isLoading={false} onSearch={this._onSearch}/>
+        <SearchForm isLoading={false} onSearch={this._onSearch} isInstant={true}/>
+        <SearchResults data={this.props.search}/>
       </div>
     );
   },
@@ -52,8 +56,8 @@ const App = React.createClass({
 });
 
 function mapStateToProps(state) {
-  const { tracks } = state;
-  return { tracks };
+  const { search } = state;
+  return { search };
 }
 
 export default connect(mapStateToProps)(App);

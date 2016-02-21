@@ -1,4 +1,4 @@
-import api from '../lib/api.js';
+import { getSong } from '../lib/api.js';
 
 export const UPDATE_SONG = 'UPDATE_SONG';
 export const REQUEST_SONG = 'REQUEST_SONG';
@@ -30,7 +30,7 @@ export function fetchSong(id) {
   return dispatch => {
     dispatch(requestSong(id));
 
-    return api.getSong(id)
+    return getSong(id)
       .then(json => dispatch(receiveSong(id, json)))
       .catch(err => {
         throw err;

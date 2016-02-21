@@ -8,6 +8,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config');
 
 const songController = require('./controllers/song');
+const searchController = require('./controllers/search');
 
 const app = express();
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -31,7 +32,8 @@ app.get(routes, (req, res) => {
 
 app.use('/assets', express.static(`${__dirname}/static/assets`));
 app.use('/lib', express.static(`${__dirname}/static/lib`));
-app.get('/api/songs/:id', (req, res) => songController.getSong(req, res));
+app.get('/api/songs/:id', (req, res) => songController.get(req, res));
+app.get('/api/search', (req, res) => searchController.get(req, res));
 
 app.listen(port, (err) => {
   if (err) {

@@ -55,6 +55,7 @@ function profileSong(id) {
     },
   };
 
+  console.log(options);
   return axios(options)
     .then((res) => res.data.response);
 }

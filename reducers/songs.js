@@ -4,7 +4,7 @@ import {
   REQUEST_SONG,
 } from '../actions/songs';
 
-function tracks(state = {}, action) {
+function songs(state = {}, action) {
   switch (action.type) {
     case REQUEST_SONG: {
       return state;
@@ -25,4 +25,4 @@ function tracks(state = {}, action) {
   }
 }
 
-export default tracks;
+export default songs;
