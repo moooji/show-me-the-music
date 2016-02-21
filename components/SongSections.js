@@ -24,12 +24,13 @@ const SongSections = React.createClass({
 
       const start = secondsToHms(section.start);
       const key = keyToString(section.key, section.mode);
+      const segmentRatio = Math.round(section.numSegments / section.duration * 10) / 10;
 
       return (
         <div className="song-section"key={i}>
           <div className="song-section-bar" style={style}></div>
           <div className="song-section-label">{start}</div>
-          <div className="song-section-key">{key}</div>
+          <div className="song-section-key">{segmentRatio}</div>
         </div>
       );
     });

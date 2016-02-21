@@ -62,14 +62,61 @@ function profileSong(id) {
 function getSongAnalysis(id) {
   return profileSong(id)
     .then((data) => {
+      console.log(data);
       const song = data.songs[0];
       const analysisUrl = song.audio_summary.analysis_url;
 
       return axios.get(analysisUrl)
         .then(res => {
-          console.log(res.data.segments);
-          console.log(res.data.tatums);
+          const segments = res.data.segments;
+
+          /*
+          const filteredSegments = [];
+
+          for (let i = 0; i < segments.length; i = i + 1) {
+            const segment = segments[i];
+            let durationDelta = 0;
+
+            if (i !== 0) {
+              const previousSegment = segments[i - 1];
+              durationDelta = segment.duration - previousSegment.duration;
+            }
+
+            filteredSegments.push(Object.assign(segment, { durationDelta }));
+          }
+
+          const processedSegments = [];
+
+          for (let i = 0; i < filteredSegments.length; i = i + 1) {
+            const segment = filteredSegments[i];
+            let durationAcc = 0;
+
+            if (i !== 0) {
+              const previousSegment = filteredSegments[i - 1];
+              durationAcc = segment.durationDelta - previousSegment.durationDelta;
+            }
+
+            processedSegments.push(Object.assign(segment, { durationAcc }));
+          }
+          */
+
+          const sections = res.data.sections.map((section) => {
+            const end = section.start + section.duration;
+            const numSegments = 0;
+            return Object.assign(section, { end, numSegments });
+          });
+
+          segments.forEach((segment) => {
+            sections.forEach((section, i) => {
+              if (segment.start >= section.start && segment.start <= section.end) {
+                sections[i].numSegments++;
+                return;
+              }
+            });
+          });
+
           return {
+            sections,
             title: song.title,
             artist: song.artist_name,
             key: song.audio_summary.key,
@@ -83,7 +130,6 @@ function getSongAnalysis(id) {
             duration: song.audio_summary.duration,
             danceability: song.audio_summary.danceability,
             valence: song.audio_summary.valence,
-            sections: res.data.sections,
             numTatums: res.data.tatums.length,
             numSegments: res.data.segments.length,
             numBeats: res.data.beats.length,

@@ -9,6 +9,7 @@ function getSong(req, res) {
       res.json(data);
     })
     .catch((err) => {
+      console.error(err);
       res.status(err.status).json({ error: err.statusText });
     });
 }

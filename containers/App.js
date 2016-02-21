@@ -25,16 +25,19 @@ const App = React.createClass({
       return (this.props.children);
     }
 
-    //return (<SearchForm isLoading={false} onSearch={this._onSearch}/>);
+    return (
+      <div>
+        <header>
+          <Link to="/"><h1>Show<br/>me the music.</h1></Link>
+        </header>
+        <SearchForm isLoading={false} onSearch={this._onSearch}/>
+      </div>
+    );
   },
 
   render() {
     return (
       <div className="main">
-        <header>
-          <Link to="/"><h1>Show<br/>me the music.</h1></Link>
-        </header>
-        <SearchForm isLoading={false} onSearch={this._onSearch}/>
         {this.renderForm()}
         <footer className="footer section">
           <div className="footer-message">Copyright 2016 - Steffen Strätz</div>
