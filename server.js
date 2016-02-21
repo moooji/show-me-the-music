@@ -1,5 +1,6 @@
 'use strict';
 
+const cors = require('cors');
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -23,6 +24,7 @@ const routes = [
   '/song*',
 ];
 
+app.use(cors());
 app.get(routes, (req, res) => {
   res.sendFile(`${__dirname}/static/index.html`);
 });
