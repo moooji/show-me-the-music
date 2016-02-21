@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import SongSections from '../components/SongSections';
 import SongVisualizer from '../components/SongVisualizer';
 import { fetchSong } from '../actions/songs';
-import { keyToString, moodToString } from '../lib/utils';
+import { keyToString, moodToString, roundDigits } from '../lib/utils';
 
 const Song = React.createClass({
   propTypes: {
@@ -26,33 +26,6 @@ const Song = React.createClass({
     }
   },
 
-/*
-  renderBoxes() {
-    const size = 1;
-    const rotation = new THREE.Euler(10, 0, 0);
-
-    if (!this.props.song.sections) {
-      return (null);
-    }
-
-    return this.props.song.sections.map((section, i) => {
-      const height = -3 / section.loudness;
-      const position = new THREE.Vector3(section.start / 15 - 10, 0, 0);
-      const width = Math.round(section.duration / 15);
-      return (
-        <mesh rotation={rotation} position={position} key={i}>
-          <boxGeometry
-            width={width}
-            height={height}
-            depth={size}
-            />
-          <meshLambertMaterial opacity={0.8} transparent={true} color={0xffffff}/>
-        </mesh>
-      );
-    });
-  },
-  */
-
   render() {
     const { song } = this.props;
 
@@ -66,13 +39,13 @@ const Song = React.createClass({
           <h3>{Math.round(song.tempo)}</h3>
           <ul className="song-properties">
             <li>{keyToString(song.key, song.mode)}</li>
-            <li>E: {song.energy}</li>
-            <li>V: {song.valence}</li>
-            <li>L: {song.liveness}</li>
-            <li>D: {song.danceability}</li>
+            <li>E: {roundDigits(song.energy, 2)}</li>
+            <li>V: {roundDigits(song.valence, 2)}</li>
+            <li>L: {roundDigits(-1 / song.loudness, 2)}</li>
+            <li>D: {roundDigits(song.danceability, 2)}</li>
             <li>S: {song.numSegments}</li>
             <li>B: {song.numBeats}</li>
-            <li>SD: {song.numSegments / song.duration}</li>
+            <li>SD: {roundDigits(song.numSegments / song.duration, 2)}</li>
           </ul>
           <SongSections items={song.sections}/>
         </section>
