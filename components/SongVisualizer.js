@@ -99,24 +99,38 @@ const SongVisualizer = React.createClass({
     //
   },
 
+  componentWillUnmount: function () {
+    console.log('Unmount');
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.mouseX = null;
+    this.mouseY = null;
+  },
+
   onDocumentMouseMove(e) {
     this.mouseX = (e.clientX - this.props.width);
     this.mouseY = (e.clientY - this.props.height);
   },
 
   animate() {
+    if (!this.camera || !this.scene || !this.renderer) {
+      return;
+    }
+
     requestAnimationFrame(this.animate);
     this.draw();
   },
 
   draw() {
-    this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.05;
-    this.camera.position.y += (-this.mouseY - this.camera.position.y) * 0.05;
     this.camera.lookAt(this.scene.position);
+    this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.1;
+    this.camera.position.y += (-this.mouseY - this.camera.position.y) * 0.1;
     this.renderer.render(this.scene, this.camera);
   },
 
   render: function () {
+    console.log('Render');
     return (
         <div ref="container"
           width={this.props.width}
