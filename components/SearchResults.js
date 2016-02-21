@@ -23,8 +23,8 @@ const SearchResults = React.createClass({
             width={item.image.width}
             height={item.image.height}/>
           <div className="search-results-info" style={{ display: 'inline-block' }}>
-            <h2>{item.artists}</h2>
-            <h3>{item.title}</h3>
+            <h2>{item.title}</h2>
+            <h3>{item.artists}</h3>
           </div>
         </Link>
       );
