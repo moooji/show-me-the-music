@@ -24,15 +24,50 @@ const SongVisualizer = React.createClass({
     this.camera.position.z = 1800;
     this.scene = new THREE.Scene();
 
-    const light = new THREE.DirectionalLight(0xffffff);
-    light.position.set(0, 0, 1);
-    this.scene.add(light);
+    this.light = new THREE.DirectionalLight(0xffffff);
+    this.light.position.set(0, 0, 1);
+    this.scene.add(this.light);
 
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = width;
+    this.canvas.height = height;
 
-    const shadowTexture = new THREE.Texture(canvas);
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(width, height);
+    container.appendChild(this.renderer.domElement);
+    this.renderer.render(this.scene, this.camera);
+
+    document.addEventListener('mousemove', this.onDocumentMouseMove, false);
+    this.animate();
+
+    if (this.props.data) {
+      this.addMesh();
+    }
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    // console.log(nextProps);
+  },
+
+  componentWillUnmount: function () {
+    console.log('Unmount');
+    this.scene = null;
+    this.camera = null;
+    this.canvas = null;
+    this.light = null;
+    this.renderer = null;
+    this.mouseX = null;
+    this.mouseY = null;
+  },
+
+  onDocumentMouseMove(e) {
+    this.mouseX = (e.clientX - this.props.width);
+    this.mouseY = (e.clientY - this.props.height);
+  },
+
+  addMesh() {
+    const shadowTexture = new THREE.Texture(this.canvas);
     shadowTexture.needsUpdate = true;
     const shadowMaterial = new THREE.MeshBasicMaterial({ map: shadowTexture });
     const shadowGeo = new THREE.PlaneBufferGeometry(300, 300, 1, 1);
@@ -78,39 +113,6 @@ const SongVisualizer = React.createClass({
     group1.position.x = 0;
     group1.rotation.x = -1.87;
     this.scene.add(group1);
-
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(width, height);
-    container.appendChild(this.renderer.domElement);
-    this.renderer.render(this.scene, this.camera);
-
-    document.addEventListener('mousemove', this.onDocumentMouseMove, false);
-    this.animate();
-
-    // Draw Chart first time
-    if (this.props.data) {
-      //this.draw(this.props.data);
-    }
-  },
-
-  componentWillReceiveProps: function (nextProps) {
-    //this.hidePreviousChart(nextProps.data);
-    //
-  },
-
-  componentWillUnmount: function () {
-    console.log('Unmount');
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.mouseX = null;
-    this.mouseY = null;
-  },
-
-  onDocumentMouseMove(e) {
-    this.mouseX = (e.clientX - this.props.width);
-    this.mouseY = (e.clientY - this.props.height);
   },
 
   animate() {
