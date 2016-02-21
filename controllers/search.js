@@ -4,7 +4,7 @@ const spotify = require('./spotify');
 
 function get(req, res) {
   const query = req.query.text;
-  spotify.search(query, 5)
+  spotify.search(query, 1)
     .then((data) => res.json(data))
     .catch((err) => {
       console.error(err);

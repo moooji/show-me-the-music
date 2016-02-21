@@ -17,19 +17,23 @@ const SearchResults = React.createClass({
 
     const results = this.props.data.tracks.map((item) => {
       return (
-        <li key={item.uri}>
-          <Link to={`/song/${item.uri}`}>
-            <img src={item.image.url} width={item.image.width / 2} height={item.image.height / 2}/>
-            {item.artists} - {item.title}
-          </Link>
-        </li>
+        <Link to={`/song/${item.uri}`} key={item.uri}>
+          <img
+            src={item.image.url}
+            width={item.image.width}
+            height={item.image.height}/>
+          <div className="search-results-info" style={{ display: 'inline-block' }}>
+            <h2>{item.artists}</h2>
+            <h3>{item.title}</h3>
+          </div>
+        </Link>
       );
     });
 
     return (
-      <ul className="search-results">
+      <div className="search-results">
         {results}
-      </ul>
+      </div>
     );
   },
 });

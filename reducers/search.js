@@ -16,11 +16,16 @@ function search(state = {
     }
 
     case RECEIVE_SEARCH: {
-      return Object.assign({}, state, {
+      const newState = {
         text: action.text,
-        tracks: action.data.tracks,
         isLoading: false,
-      });
+      };
+
+      if (action.data.tracks.length) {
+        newState.tracks = action.data.tracks;
+      }
+
+      return Object.assign({}, state, newState);
     }
 
     default:

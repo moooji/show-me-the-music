@@ -5,7 +5,6 @@ import DevTools from './DevTools';
 import TimerMixin from 'react-timer-mixin';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import SearchForm from '../components/SearchForm';
-import SearchResults from '../components/SearchResults';
 import { fetchSearch } from '../actions/search';
 import '../css/main.css';
 
@@ -25,21 +24,20 @@ const App = React.createClass({
   },
 
   _onSearch(text) {
-    //const url = `/song/${query}`;
-    //this.context.router.push(url);
-    if (!this.props.search.isLoading) {
-      return this._fetchSearch(text);
-    };
-
     if (this.state.timer) {
       this.clearTimeout(this.state.timer);
     }
 
-    this.setState({ timer: this.setTimeout(() => this._fetchSearch(text), 20) });
+    if (!this.props.search.isLoading) {
+      return this.props.dispatch(fetchSearch(text));
+    };
+
+    this.setState({ timer: this.setTimeout(() => this._onSearch(text), 20) });
   },
 
-  _fetchSearch(text) {
-    this.props.dispatch(fetchSearch(text));
+  _onSubmit(songId) {
+    const url = `/song/${songId}`;
+    this.context.router.push(url);
   },
 
   renderForm() {
@@ -52,8 +50,11 @@ const App = React.createClass({
         <header>
           <Link to="/"><h1>Show<br/>me the music.</h1></Link>
         </header>
-        <SearchForm isLoading={false} onSearch={this._onSearch} isInstant={true}/>
-        <SearchResults data={this.props.search}/>
+        <SearchForm
+          isLoading={false}
+          onSearch={this._onSearch}
+          onSubmit={this._onSubmit}
+          data={this.props.search}/>
       </div>
     );
   },
