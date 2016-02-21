@@ -1,12 +1,11 @@
 'use strict';
 
 import React from 'react';
-import React3 from 'react-three-renderer';
-import THREE from 'three';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import SongSections from '../components/SongSections';
+import SongVisualizer from '../components/SongVisualizer';
 import { fetchSong } from '../actions/songs';
 import { keyToString, moodToString } from '../lib/utils';
 
@@ -27,6 +26,7 @@ const Song = React.createClass({
     }
   },
 
+/*
   renderBoxes() {
     const size = 1;
     const rotation = new THREE.Euler(10, 0, 0);
@@ -51,10 +51,10 @@ const Song = React.createClass({
       );
     });
   },
+  */
 
   render() {
     const { song } = this.props;
-    const cameraPosition = new THREE.Vector3(0, 0, 20);
 
     return (
       <div>
@@ -76,27 +76,7 @@ const Song = React.createClass({
           </ul>
           <SongSections items={song.sections}/>
         </section>
-        <React3
-          mainCamera="camera"
-          width={1080}
-          height={400}
-          alpha={true}
-          antialias={4}
-          precision={'highp'}
-          premultipliedAlpha={true}>
-          <scene>
-            <ambientLight castShadow={true}/>
-            <perspectiveCamera
-              name="camera"
-              fov={30}
-              aspect={1920 / 1080}
-              near={0.1}
-              far={100}
-              position={cameraPosition}
-            />
-            {this.renderBoxes()}
-          </scene>
-        </React3>
+        <SongVisualizer width={1024} height={512} data={[1, 2, 3]}/>
       </div>
     );
   },
