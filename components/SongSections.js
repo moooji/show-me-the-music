@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { secondsToHms, keyToString } from '../lib/utils';
+import { secondsToHms } from '../lib/utils';
 
 const SongSections = React.createClass({
   propTypes: {
@@ -17,13 +17,12 @@ const SongSections = React.createClass({
 
     const sections = this.props.items.map((section, i) => {
       const style = {
-        width: section.duration * 3,
+        width: section.duration * 3.5,
         height: -150 / section.loudness,
-        opacity: -3 / section.loudness,
+        opacity: -4 / section.loudness,
       };
 
       const start = secondsToHms(section.start);
-      const key = keyToString(section.key, section.mode);
       const segmentRatio = Math.round(section.numSegments / section.duration * 10) / 10;
 
       return (

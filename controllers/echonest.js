@@ -56,6 +56,7 @@ function profileSong(id) {
   };
 
   console.log(options);
+
   return axios(options)
     .then((res) => res.data.response);
 }
@@ -64,42 +65,13 @@ function getSongAnalysis(id) {
   return profileSong(id)
     .then((data) => {
       console.log(data);
-      const song = data.songs[0];
+
+      const song = data.songs.shift();
       const analysisUrl = song.audio_summary.analysis_url;
 
       return axios.get(analysisUrl)
         .then(res => {
           const segments = res.data.segments;
-
-          /*
-          const filteredSegments = [];
-
-          for (let i = 0; i < segments.length; i = i + 1) {
-            const segment = segments[i];
-            let durationDelta = 0;
-
-            if (i !== 0) {
-              const previousSegment = segments[i - 1];
-              durationDelta = segment.duration - previousSegment.duration;
-            }
-
-            filteredSegments.push(Object.assign(segment, { durationDelta }));
-          }
-
-          const processedSegments = [];
-
-          for (let i = 0; i < filteredSegments.length; i = i + 1) {
-            const segment = filteredSegments[i];
-            let durationAcc = 0;
-
-            if (i !== 0) {
-              const previousSegment = filteredSegments[i - 1];
-              durationAcc = segment.durationDelta - previousSegment.durationDelta;
-            }
-
-            processedSegments.push(Object.assign(segment, { durationAcc }));
-          }
-          */
 
           const sections = res.data.sections.map((section) => {
             const end = section.start + section.duration;
@@ -120,7 +92,7 @@ function getSongAnalysis(id) {
             sections,
             title: song.title,
             artist: song.artist_name,
-            key: song.audio_summary.key,
+            key: getKey(song.audio_summary.key, song.audio_summary.mode),
             energy: song.audio_summary.energy,
             liveness: song.audio_summary.liveness,
             tempo: song.audio_summary.tempo,
@@ -131,12 +103,63 @@ function getSongAnalysis(id) {
             duration: song.audio_summary.duration,
             danceability: song.audio_summary.danceability,
             valence: song.audio_summary.valence,
+            mood: getMood(song.audio_summary.energy, song.audio_summary.valence),
             numTatums: res.data.tatums.length,
             numSegments: res.data.segments.length,
             numBeats: res.data.beats.length,
           };
         });
     });
+}
+
+function getKey(key, mode) {
+  const major = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  const minor = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'];
+  const label = mode === 1 ? major[key] : minor[key];
+  return { label, mode, value: key };
+}
+
+function getMood(arousal, valence) {
+  const moods = [
+    { id: 'excited', label: 'Excited', arousal: 1, valence: 1 },
+    { id: 'happy', label: 'Happy', arousal: 0.5, valence: 1 },
+    { id: 'angry', label: 'Angry', arousal: 1, valence: 0 },
+    { id: 'sleepy', label: 'Sleepy', arousal: 0, valence: 0 },
+    { id: 'sad', label: 'Sad', arousal: 0.5, valence: 0 },
+    { id: 'melancholic', label: 'Melancholic', arousal: 0, valence: 0 },
+    { id: 'relaxed', label: 'Relaxed', arousal: 0, valence: 0.5 },
+  ];
+
+  const sorted = moods.sort((moodA, moodB) => {
+    const distA = moodDistance(arousal, valence, moodA.arousal, moodA.valence);
+    const distB = moodDistance(arousal, valence, moodB.arousal, moodB.valence);
+
+    if (distA > distB) {
+      return 1;
+    }
+
+    if (distA < distB) {
+      return -1;
+    }
+
+    return 0;
+  });
+
+  const mood = sorted.shift();
+  const intensity = roundDigits(moodDistance(arousal, valence, 0.5, 0.5), 5);
+  return Object.assign({}, mood, { intensity });
+}
+
+function moodDistance(arousalA, valenceA, arousalB, valenceB) {
+  const arousalDelta = arousalA - arousalB;
+  const valenceDelta = valenceA - valenceB;
+
+  return Math.sqrt(Math.pow(arousalDelta, 2) + Math.pow(valenceDelta, 2));
+}
+
+function roundDigits(value, digits) {
+  const factor = Math.pow(10, digits);
+  return Math.round(value * factor) / factor;
 }
 
 module.exports.getSongAnalysis = getSongAnalysis;
