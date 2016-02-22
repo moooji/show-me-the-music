@@ -17,7 +17,7 @@ const SearchResults = React.createClass({
 
     const results = this.props.data.tracks.map((item) => {
       return (
-        <Link to={`/songs/${item.uri}`} key={item.uri}>
+        <Link to={`/tracks/${item.uri}`} key={item.uri}>
           <img
             src={item.image.url}
             width={item.image.width}
