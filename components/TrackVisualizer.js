@@ -73,7 +73,9 @@ const TrackVisualizer = React.createClass({
     data.sections.forEach((section) => {
       const position = { x: section.start * 4, y: 0, y: 0 };
       const rotation = { x: -1.87, y: 0, y: 0 };
-      const size = -300 / section.loudness;
+      //const size = -300 / section.loudness;
+      const size = section.duration * 1.5;
+      //const size = { x: section.duration * 4, y: -300 / section.loudness, z: 100 };
       this.addMesh(position, rotation, size, offset);
     });
   },
@@ -99,6 +101,7 @@ const TrackVisualizer = React.createClass({
     let vertexIndex;
 
     const geometry  = new THREE.IcosahedronGeometry(size, 1);
+    //const geometry  = new THREE.BoxGeometry(size.x, size.y, size.z);
 
     for (let i = 0; i < geometry.faces.length; i++) {
       f  = geometry.faces[i];
