@@ -223,11 +223,14 @@ footer {
   display: inline-block;
 }
 
-.pulse {
-  width: 33px;
-  height: 33px;
-  background-color: #FFF;
+.track-loading-indicator {
+    margin-bottom: 50px;
+}
 
+.pulse {
+  width: 25px;
+  height: 25px;
+  background-color: #FFF;
   border-radius: 100%;
   -webkit-animation: scaleout 1.0s infinite ease-in-out;
   animation: scaleout 1.0s infinite ease-in-out;

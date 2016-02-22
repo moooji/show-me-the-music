@@ -57,7 +57,7 @@ const SearchForm = React.createClass({
             <span className={inputClass}>
               <input type="text" id="search-input" ref="query" onChange={this._onChange}/>
               <label className="input-label" htmlFor="search-input">
-                <span className="input-label-content">Enter a song, album or playlist</span>
+                <span className="input-label-content">Enter a song, album or artist</span>
               </label>
             </span>
         </div>

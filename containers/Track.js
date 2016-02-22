@@ -61,7 +61,9 @@ const Track = React.createClass({
 
     return (
       <div>
-        <LoadingIndicator isLoading={isLoading}/>
+        <div className="track-loading-indicator">
+          <LoadingIndicator isLoading={isLoading}/>
+        </div>
         {this.renderTrack(track)}
         <TrackVisualizer width={1024} height={512} data={[1, 2, 3]}/>
         <Link to="/"><button>Try again</button></Link>
