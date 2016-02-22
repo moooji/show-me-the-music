@@ -10,7 +10,7 @@ const TrackVisualizer = React.createClass({
   propTypes: {
     width: React.PropTypes.number.isRequired,
     height: React.PropTypes.number.isRequired,
-    data: React.PropTypes.arrayOf(React.PropTypes.number),
+    data: React.PropTypes.object,
   },
 
   componentDidMount: function () {
@@ -40,14 +40,11 @@ const TrackVisualizer = React.createClass({
 
     document.addEventListener('mousemove', this.onDocumentMouseMove, false);
     this.animate();
-
-    if (this.props.data) {
-      this.addMesh();
-    }
+    this.drawSections(this.props.data);
   },
 
   componentWillReceiveProps: function (nextProps) {
-    // console.log(nextProps);
+    this.drawSections(nextProps.data);
   },
 
   componentWillUnmount: function () {
@@ -66,16 +63,32 @@ const TrackVisualizer = React.createClass({
     this.mouseY = (e.clientY - this.props.height);
   },
 
-  addMesh() {
-    const shadowTexture = new THREE.Texture(this.canvas);
-    shadowTexture.needsUpdate = true;
-    const shadowMaterial = new THREE.MeshBasicMaterial({ map: shadowTexture });
-    const shadowGeo = new THREE.PlaneBufferGeometry(300, 300, 1, 1);
+  drawSections(data) {
+    if (!data || !data.sections) {
+      return;
+    }
 
-    const mesh = new THREE.Mesh(shadowGeo, shadowMaterial);
-    mesh.position.y = 100;
-    mesh.position.x = 200;
-    mesh.rotation.x = -Math.PI / 2;
+    const offset = { x: 450, y: 0, y: 0 };
+
+    data.sections.forEach((section) => {
+      const position = { x: section.start * 4, y: 0, y: 0 };
+      const rotation = { x: -1.87, y: 0, y: 0 };
+      const size = -300 / section.loudness;
+      this.addMesh(position, rotation, size, offset);
+    });
+  },
+
+  addMesh(position, rotation, size, offset) {
+    //const shadowTexture = new THREE.Texture(this.canvas);
+    //shadowTexture.needsUpdate = true;
+    //const shadowMaterial = new THREE.MeshBasicMaterial({ map: shadowTexture });
+    //const shadowGeo = new THREE.PlaneBufferGeometry(size, size, 1, 1);
+    // const mesh = new THREE.Mesh(shadowGeo, shadowMaterial);
+
+    const mesh = new THREE.Mesh();
+    //mesh.position.y = position.y;
+    //mesh.position.x = position.x;
+    //mesh.rotation.x = rotation.x;
     this.scene.add(mesh);
 
     const faceIndices = ['a', 'b', 'c'];
@@ -84,9 +97,8 @@ const TrackVisualizer = React.createClass({
     let f;
     let p;
     let vertexIndex;
-    const radius = 200;
 
-    const geometry  = new THREE.IcosahedronGeometry(radius, 1);
+    const geometry  = new THREE.IcosahedronGeometry(size, 1);
 
     for (let i = 0; i < geometry.faces.length; i++) {
       f  = geometry.faces[i];
@@ -96,11 +108,11 @@ const TrackVisualizer = React.createClass({
         p = geometry.vertices[vertexIndex];
 
         color = new THREE.Color(0xffffff);
-        color.setHSL((p.y / radius + 1) / 2, 1.0, 0.5);
+        color.setHSL((p.y / size + 1) / 2, 1.0, 0.5);
 
         f.vertexColors[j] = color;
         color = new THREE.Color(0xffffff);
-        color.setHSL(0.0, (p.y / radius + 1) / 2, 0.5);
+        color.setHSL(0.0, (p.y / size + 1) / 2, 0.5);
       }
     }
 
@@ -110,8 +122,8 @@ const TrackVisualizer = React.createClass({
 		];
 
     const group1 = THREE.SceneUtils.createMultiMaterialObject(geometry, materials);
-    group1.position.x = 0;
-    group1.rotation.x = -1.87;
+    group1.position.x = position.x - offset.x;
+    group1.rotation.x = rotation.x;
     this.scene.add(group1);
   },
 
