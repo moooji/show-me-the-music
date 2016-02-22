@@ -8,7 +8,7 @@ import TrackSections from '../components/TrackSections';
 import TrackVisualizer from '../components/TrackVisualizer';
 import LoadingIndicator from '../components/LoadingIndicator';
 import { fetchTrack } from '../actions/tracks';
-import { roundDigits } from '../lib/utils';
+import { roundDigits, toPercentage } from '../lib/utils';
 
 const Track = React.createClass({
   propTypes: {
@@ -38,16 +38,14 @@ const Track = React.createClass({
           <Link to="/"><h1>{track.name}<br/>{track.artists}</h1></Link>
         </header>
         <section className="track-container">
-          <h2>{track.mood.label}</h2>
-          <h3>{roundDigits(track.mood.intensity, 2)}</h3>
+          <h2>{track.mood.label} {toPercentage(track.mood.intensity, 0)} %</h2>
+          <h3>{track.key.label}</h3>
           <div className="track-properties">
-            <div className="track-property">{track.key.label}</div>
-            <div className="track-property">E: {roundDigits(track.energy, 2)}</div>
-            <div className="track-property">V: {roundDigits(track.valence, 2)}</div>
-            <div className="track-property">L: {roundDigits(-1 / track.loudness, 2)}</div>
-            <div className="track-property">D: {roundDigits(track.danceability, 2)}</div>
-            <div className="track-property">SD: {roundDigits(track.numSegments / track.duration, 2)}</div>
-            <div className="track-property">T: {roundDigits(track.tempo, 2)}</div>
+            <div className="track-property">Energy: {toPercentage(track.energy, 0)}%</div>
+            <div className="track-property">Loudness: {toPercentage(-1 / track.loudness, 0)}%</div>
+            <div className="track-property">Danceability: {toPercentage(track.danceability, 0)}%</div>
+            <div className="track-property">Complexity: {roundDigits(track.numSegments / track.duration, 2)}</div>
+            <div className="track-property">Tempo: {roundDigits(track.tempo, 0)} BPM</div>
           </div>
           <TrackSections items={track.sections}/>
         </section>

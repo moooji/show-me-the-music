@@ -18,8 +18,8 @@ const TrackSections = React.createClass({
     const sections = this.props.items.map((section, i) => {
       const style = {
         width: section.duration * 3.5,
-        height: -150 / section.loudness,
-        opacity: -4 / section.loudness,
+        height: -180 / section.loudness,
+        opacity: 1,
       };
 
       const start = secondsToHms(section.start);

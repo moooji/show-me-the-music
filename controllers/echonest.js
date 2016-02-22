@@ -95,9 +95,9 @@ function getSong(id) {
 }
 
 function getKey(key, mode) {
-  const major = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-  const minor = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'];
-  const label = mode === 1 ? major[key] : minor[key];
+  const keyString = ['C', 'D', 'E', 'F', 'G', 'A', 'B'][key];
+  const modeString = mode === 1 ? 'major' : 'minor';
+  const label = `${keyString} ${modeString}`;
   return { label, mode, value: key };
 }
 
