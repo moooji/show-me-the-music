@@ -1,15 +1,15 @@
 import {
-  RECEIVE_SONG,
-  REQUEST_SONG,
-} from '../actions/songs';
+  RECEIVE_TRACK,
+  REQUEST_TRACK,
+} from '../actions/tracks';
 
-function songs(state = {}, action) {
+function tracks(state = {}, action) {
   switch (action.type) {
-    case REQUEST_SONG: {
+    case REQUEST_TRACK: {
       return state;
     }
 
-    case RECEIVE_SONG: {
+    case RECEIVE_TRACK: {
       return Object.assign({}, state.items, {
         [action.id]: action.data,
       });
@@ -20,4 +20,4 @@ function songs(state = {}, action) {
   }
 }
 
-export default songs;
+export default tracks;

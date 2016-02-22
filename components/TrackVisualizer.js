@@ -5,7 +5,7 @@ import THREE from 'three';
 import ReactDOM from 'react-dom';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 
-const SongVisualizer = React.createClass({
+const TrackVisualizer = React.createClass({
 
   propTypes: {
     width: React.PropTypes.number.isRequired,
@@ -132,14 +132,13 @@ const SongVisualizer = React.createClass({
   },
 
   render: function () {
-    console.log('Render');
     return (
-        <div className="three-container"
-          ref="container"
-          width={this.props.width}
-          height={this.props.height}></div>
+      <div className="three-container"
+        ref="container"
+        width={this.props.width}
+        height={this.props.height}></div>
     );
   },
 });
 
-export default SongVisualizer;
+export default TrackVisualizer;

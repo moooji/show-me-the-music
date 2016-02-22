@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createHistory } from 'history';
 
 import App from './containers/App';
-import Song from './containers/Song';
+import Track from './containers/Track';
 import Album from './containers/Album';
 import configureStore from './store';
 
@@ -16,7 +16,7 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <Route path="songs/:songId" component={Song}/>
+        <Route path="tracks/:trackId" component={Track}/>
         <Route path="albums/:albumId" component={Album}/>
       </Route>
     </Router>

@@ -132,12 +132,11 @@ const AlbumVisualizer = React.createClass({
   },
 
   render: function () {
-    console.log('Render');
     return (
-        <div className="three-container"
-          ref="container"
-          width={this.props.width}
-          height={this.props.height}></div>
+      <div className="three-container"
+        ref="container"
+        width={this.props.width}
+        height={this.props.height}></div>
     );
   },
 });

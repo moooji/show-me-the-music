@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import songs from './songs';
+import tracks from './tracks';
 import albums from './albums';
 import search from './search';
 
 const rootReducer = combineReducers({
-  songs,
+  tracks,
   albums,
   search,
 });

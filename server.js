@@ -8,7 +8,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config');
 
-const songController = require('./controllers/song');
+const tracksController = require('./controllers/tracks');
 
 const app = express();
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -22,7 +22,7 @@ if (isDevelopment) {
 
 const routes = [
   '/',
-  '/songs*',
+  '/tracks*',
 ];
 
 app.use(cors());
@@ -33,7 +33,7 @@ app.get(routes, (req, res) => {
 
 app.use('/assets', express.static(`${__dirname}/static/assets`));
 app.use('/lib', express.static(`${__dirname}/static/lib`));
-app.get('/api/songs/:id', (req, res) => songController.get(req, res));
+app.get('/api/tracks/:id', (req, res) => tracksController.get(req, res));
 
 app.listen(port, (err) => {
   if (err) {

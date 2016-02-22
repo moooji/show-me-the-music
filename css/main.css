@@ -172,33 +172,33 @@ footer {
   display: inline-block;
 }
 
-.song-section {
+.track-section {
   margin: 1px;
   display: inline-block;
   vertical-align: bottom;
 }
 
-.song-section-bar {
+.track-section-bar {
   background-color: #1f4751;
   vertical-align: bottom;
 }
 
-.song-section-label {
+.track-section-label {
   margin-top: 10px;
   position: absolute;
 }
 
-.song-section-key {
+.track-section-key {
   margin-top: 25px;
   position: absolute;
 }
 
-.song-properties ul {
+.track-properties ul {
   padding: 0;
   maring: 0;
 }
 
-.song-properties li {
+.track-properties li {
   display: inline-block;
   text-decoration: none;
   padding: 0;

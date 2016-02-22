@@ -4,7 +4,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import SongSections from '../components/SongSections';
+import TrackSections from '../components/TrackSections';
 import AlbumVisualizer from '../components/AlbumVisualizer';
 import { fetchAlbum } from '../actions/albums';
 import { roundDigits } from '../lib/utils';

@@ -35,8 +35,8 @@ const App = React.createClass({
     this.setState({ timer: this.setTimeout(() => this._onSearch(text), 20) });
   },
 
-  _onSubmit(songId) {
-    const url = `/songs/${songId}`;
+  _onSubmit(trackId) {
+    const url = `/tracks/${trackId}`;
     this.context.router.push(url);
   },
 

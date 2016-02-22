@@ -4,7 +4,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { secondsToHms } from '../lib/utils';
 
-const SongSections = React.createClass({
+const TrackSections = React.createClass({
   propTypes: {
     items: React.PropTypes.array,
   },
@@ -26,20 +26,20 @@ const SongSections = React.createClass({
       const segmentRatio = Math.round(section.numSegments / section.duration * 10) / 10;
 
       return (
-        <div className="song-section"key={i}>
-          <div className="song-section-bar" style={style}></div>
-          <div className="song-section-label">{start}</div>
-          <div className="song-section-key">{segmentRatio}</div>
+        <div className="track-section"key={i}>
+          <div className="track-section-bar" style={style}></div>
+          <div className="track-section-label">{start}</div>
+          <div className="track-section-key">{segmentRatio}</div>
         </div>
       );
     });
 
     return (
-      <div className="song-sections">
+      <div className="track-sections">
         {sections}
       </div>
     );
   },
 });
 
-export default SongSections;
+export default TrackSections;
