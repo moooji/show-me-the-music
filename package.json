@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "axios": "^0.9.1",
+    "compression": "^1.6.1",
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "react": "^0.14.7",

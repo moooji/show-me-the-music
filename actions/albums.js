@@ -1,4 +1,4 @@
-import { getAlbum } from '../lib/api.js';
+import { getAlbum } from '../lib/spotify';
 
 export const REQUEST_ALBUM = 'REQUEST_ALBUM';
 export const RECEIVE_ALBUM = 'RECEIVE_ALBUM';

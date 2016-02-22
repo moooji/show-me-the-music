@@ -2,14 +2,13 @@
 
 const cors = require('cors');
 const express = require('express');
+const compress = require('compression');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config');
 
 const songController = require('./controllers/song');
-const albumController = require('./controllers/album');
-const searchController = require('./controllers/search');
 
 const app = express();
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -24,10 +23,10 @@ if (isDevelopment) {
 const routes = [
   '/',
   '/songs*',
-  '/albums*',
 ];
 
 app.use(cors());
+app.use(compress());
 app.get(routes, (req, res) => {
   res.sendFile(`${__dirname}/static/index.html`);
 });
@@ -35,8 +34,6 @@ app.get(routes, (req, res) => {
 app.use('/assets', express.static(`${__dirname}/static/assets`));
 app.use('/lib', express.static(`${__dirname}/static/lib`));
 app.get('/api/songs/:id', (req, res) => songController.get(req, res));
-app.get('/api/albums/:id', (req, res) => albumController.get(req, res));
-app.get('/api/search', (req, res) => searchController.get(req, res));
 
 app.listen(port, (err) => {
   if (err) {

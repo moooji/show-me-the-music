@@ -17,6 +17,9 @@ function profileSong(id) {
       bucket: ['audio_summary', 'id:spotify'],
       results: 1,
     },
+    headers: {
+      'Accept-Encoding': 'gzip',
+    },
     paramsSerializer: (params) => {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
@@ -40,9 +43,15 @@ function getSong(id) {
       const analysisUrl = song.audio_summary.analysis_url;
       console.log(analysisUrl);
 
-      return axios.get(analysisUrl)
+      const options = {
+        url: analysisUrl,
+        headers: { 'Accept-Encoding': 'gzip' },
+      };
+
+      return axios(options)
         .then(res => {
           console.log(`Got song analysis ${id}`);
+          console.log(res.headers);
 
           const segments = res.data.segments;
 

@@ -1,4 +1,4 @@
-import { getSong } from '../lib/api.js';
+import { getSong } from '../lib/api';
 
 export const REQUEST_SONG = 'REQUEST_SONG';
 export const RECEIVE_SONG = 'RECEIVE_SONG';

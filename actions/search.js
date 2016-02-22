@@ -1,4 +1,4 @@
-import { search } from '../lib/api.js';
+import { search } from '../lib/spotify';
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
