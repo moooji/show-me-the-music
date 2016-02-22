@@ -172,6 +172,10 @@ footer {
   display: inline-block;
 }
 
+.track-sections {
+  padding-bottom: 100px;
+}
+
 .track-section {
   margin: 1px;
   display: inline-block;
@@ -203,6 +207,39 @@ footer {
   text-decoration: none;
   padding: 0;
   margin-right: 10px;
+}
+
+.pulse {
+  width: 33px;
+  height: 33px;
+  background-color: #FFF;
+
+  border-radius: 100%;
+  -webkit-animation: scaleout 1.0s infinite ease-in-out;
+  animation: scaleout 1.0s infinite ease-in-out;
+  -webkit-animation-delay: 0.0s;
+  animation-delay: 0.0s;
+  transform: scale(0.0);
+  -webkit-transform: scale(0.0);
+}
+
+@-webkit-keyframes scaleout {
+  0% { -webkit-transform: scale(0.0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleout {
+  0% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 100% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
 }
 
 @media (max-width: 1440px) {

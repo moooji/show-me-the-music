@@ -4,6 +4,7 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import AlbumTrack from '../containers/AlbumTrack';
 import TrackSections from '../components/TrackSections';
 import AlbumVisualizer from '../components/AlbumVisualizer';
 import { fetchAlbum } from '../actions/albums';
@@ -32,7 +33,7 @@ const Album = React.createClass({
     }
 
     return trackUris.map((trackUri) => {
-      return (<div key={trackUri}>{trackUri}</div>);
+      return (<AlbumTrack uri={trackUri} key={trackUri}/>);
     });
   },
 
@@ -48,10 +49,6 @@ const Album = React.createClass({
         <header>
           <Link to="/"><h1>{album.name}<br/>{album.artists}</h1></Link>
         </header>
-        <section className="track-container">
-          <h2>{album.name}</h2>
-          <h3>{album.artists}</h3>
-        </section>
         {this.renderTracks(album.trackUris)}
         <AlbumVisualizer width={1024} height={512} data={[1, 2, 3]}/>
       </div>

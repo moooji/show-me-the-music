@@ -10,9 +10,8 @@ function tracks(state = {}, action) {
     }
 
     case RECEIVE_TRACK: {
-      return Object.assign({}, state.items, {
-        [action.uri]: action.data,
-      });
+      const items = Object.assign({}, state.items, { [action.uri]: action.data });
+      return Object.assign({}, state, items);
     }
 
     default:
