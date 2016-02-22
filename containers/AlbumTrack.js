@@ -35,19 +35,16 @@ const AlbumTrack = React.createClass({
     return (
       <section className="track-container">
         <h2>{track.name}</h2>
-        <h3>{track.mood.label}</h3>
-        <ul className="track-properties">
-          <li>{track.key.label}</li>
-          <li>{track.mood.label}: {roundDigits(track.mood.intensity, 2)}</li>
-          <li>E: {roundDigits(track.energy, 2)}</li>
-          <li>V: {roundDigits(track.valence, 2)}</li>
-          <li>L: {roundDigits(-1 / track.loudness, 2)}</li>
-          <li>D: {roundDigits(track.danceability, 2)}</li>
-          <li>S: {track.numSegments}</li>
-          <li>B: {track.numBeats}</li>
-          <li>SD: {roundDigits(track.numSegments / track.duration, 2)}</li>
-          <li>T: {roundDigits(track.tempo, 2)}</li>
-        </ul>
+        <h3>{track.mood.label}: {roundDigits(track.mood.intensity, 2)}</h3>
+        <div className="track-properties">
+          <div className="track-property">{track.key.label}</div>
+          <div className="track-property">E:{roundDigits(track.energy, 2)}</div>
+          <div className="track-property">V:{roundDigits(track.valence, 2)}</div>
+          <div className="track-property">L:{roundDigits(-1 / track.loudness, 2)}</div>
+          <div className="track-property">D:{roundDigits(track.danceability, 2)}</div>
+          <div className="track-property">SD:{roundDigits(track.numSegments / track.duration, 2)}</div>
+          <div className="track-property">T:{roundDigits(track.tempo, 2)}</div>
+        </div>
         <TrackSections items={track.sections}/>
       </section>
     );

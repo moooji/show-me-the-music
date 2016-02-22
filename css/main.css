@@ -173,6 +173,7 @@ footer {
 }
 
 .track-sections {
+  padding-top: 25px;
   padding-bottom: 100px;
 }
 
@@ -197,16 +198,10 @@ footer {
   position: absolute;
 }
 
-.track-properties ul {
+.track-property {
   padding: 0;
-  maring: 0;
-}
-
-.track-properties li {
+  margin-right: 8px;
   display: inline-block;
-  text-decoration: none;
-  padding: 0;
-  margin-right: 10px;
 }
 
 .pulse {
