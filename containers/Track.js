@@ -39,7 +39,6 @@ const Track = React.createClass({
         </header>
         <section className="track-container">
           <h2>{track.mood.label} {toPercentage(track.mood.intensity, 0)} %</h2>
-          <h3>{track.key.label}</h3>
           <div className="track-properties">
             <div className="track-property">Energy: {toPercentage(track.energy, 0)}%</div>
             <div className="track-property">Loudness: {toPercentage(-1 / track.loudness, 0)}%</div>
