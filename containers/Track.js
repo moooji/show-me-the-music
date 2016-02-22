@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import TrackSections from '../components/TrackSections';
 import TrackVisualizer from '../components/TrackVisualizer';
+import LoadingIndicator from '../components/LoadingIndicator';
 import { fetchTrack } from '../actions/tracks';
 import { roundDigits } from '../lib/utils';
 
@@ -26,9 +27,7 @@ const Track = React.createClass({
     }
   },
 
-  render() {
-    const { track } = this.props;
-
+  renderTrack(track) {
     if (!track) {
       return (null);
     }
@@ -52,7 +51,20 @@ const Track = React.createClass({
           </div>
           <TrackSections items={track.sections}/>
         </section>
+      </div>
+    );
+  },
+
+  render() {
+    const { track } = this.props;
+    const isLoading = !track;
+
+    return (
+      <div>
+        <LoadingIndicator isLoading={isLoading}/>
+        {this.renderTrack(track)}
         <TrackVisualizer width={1024} height={512} data={[1, 2, 3]}/>
+        <Link to="/"><button>Try again</button></Link>
       </div>
     );
   },

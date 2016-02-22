@@ -51,6 +51,20 @@ footer {
   padding: 160px;
 }
 
+button {
+  padding: 15px 18px 13px 18px;
+  border-radius: 20px;
+  border: none;
+  font-size: 14px;
+  line-height: 14px;
+  font-family: 'proxima-nova';
+  font-weight: 700;
+  letter-spacing: -0.02rem;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+}
+
 .input {
 	position: relative;
 	display: block;
@@ -161,6 +175,11 @@ footer {
 
 .search-form {
   margin-bottom: 40px;
+}
+
+.search-results {
+  padding-top: 90px;
+  padding-bottom: 30px;
 }
 
 .search-results img {

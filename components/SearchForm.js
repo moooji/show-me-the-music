@@ -40,7 +40,9 @@ const SearchForm = React.createClass({
       return (null);
     }
 
-    return(<input type="submit" value="VISUALIZE"/>);
+    return (
+      <button type="submit">Visualize</button>
+    );
   },
 
   render() {
@@ -48,22 +50,20 @@ const SearchForm = React.createClass({
     const inputClass = isFilled ? 'input input-filled' : 'input';
 
     return (
-      <div className="search-container">
+      <form className="search-container" onSubmit={this._onSubmit}>
         <LoadingIndicator isLoading={this.props.isLoading}/>
         <div className="search-form">
           <h3>{this.props.message}</h3>
-          <form onSubmit={this._onSubmit}>
             <span className={inputClass}>
               <input type="text" id="search-input" ref="query" onChange={this._onChange}/>
               <label className="input-label" htmlFor="search-input">
                 <span className="input-label-content">Enter a song, album or playlist</span>
               </label>
             </span>
-            {this.renderSubmit()}
-          </form>
         </div>
         <SearchResults data={this.props.data}/>
-      </div>
+        {this.renderSubmit()}
+      </form>
     );
   },
 });
