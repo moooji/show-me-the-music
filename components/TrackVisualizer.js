@@ -71,10 +71,10 @@ const TrackVisualizer = React.createClass({
     const offset = { x: 450, y: 0, y: 0 };
 
     data.sections.forEach((section) => {
-      const position = { x: section.start * 4, y: 0, y: 0 };
+      const size = section.duration * 2;
+      const position = { x: section.start * 4 + size / 2, y: 0, y: 0 };
       const rotation = { x: -1.87, y: 0, y: 0 };
       //const size = -300 / section.loudness;
-      const size = section.duration * 1.5;
       //const size = { x: section.duration * 4, y: -300 / section.loudness, z: 100 };
       this.addMesh(position, rotation, size, offset);
     });
