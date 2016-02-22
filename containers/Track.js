@@ -15,14 +15,14 @@ const Track = React.createClass({
   },
   mixins: [PureRenderMixin],
   componentWillMount() {
-    const trackId = this.props.trackId;
-    this.props.dispatch(fetchTrack(trackId));
+    const trackUri = this.props.trackUri;
+    this.props.dispatch(fetchTrack(trackUri));
   },
 
   componentWillReceiveProps(nextProps) {
-    const trackId = this.props.trackId;
-    if (nextProps.trackId !== trackId) {
-      this.props.dispatch(fetchTrack(nextProps.trackId));
+    const trackUri = this.props.trackUri;
+    if (nextProps.trackUri !== trackUri) {
+      this.props.dispatch(fetchTrack(nextProps.trackUri));
     }
   },
 
@@ -36,7 +36,7 @@ const Track = React.createClass({
     return (
       <div>
         <header>
-          <Link to="/"><h1>{track.title}<br/>{track.artist}</h1></Link>
+          <Link to="/"><h1>{track.name}<br/>{track.artists}</h1></Link>
         </header>
         <section className="track-container">
           <h2>{track.mood.label}</h2>
@@ -61,11 +61,11 @@ const Track = React.createClass({
 });
 
 function mapStateToProps(state, props) {
-  const trackId = props.params.trackId;
-  const track = state.tracks[trackId] || null;
+  const trackUri = props.params.trackUri;
+  const track = state.tracks[trackUri] || null;
 
   return {
-    trackId,
+    trackUri,
     track,
   };
 }

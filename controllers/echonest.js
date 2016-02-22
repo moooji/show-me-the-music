@@ -72,8 +72,8 @@ function getSong(id) {
 
           return {
             sections,
-            title: song.title,
-            artist: song.artist_name,
+            name: song.title,
+            artists: song.artist_name,
             key: getKey(song.audio_summary.key, song.audio_summary.mode),
             energy: song.audio_summary.energy,
             liveness: song.audio_summary.liveness,

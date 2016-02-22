@@ -3,27 +3,27 @@ import { getAlbum } from '../lib/spotify';
 export const REQUEST_ALBUM = 'REQUEST_ALBUM';
 export const RECEIVE_ALBUM = 'RECEIVE_ALBUM';
 
-function requestAlbum(id) {
+function requestAlbum(uri) {
   return {
     type: REQUEST_ALBUM,
-    id,
+    uri,
   };
 }
 
-function receiveAlbum(id, json) {
+function receiveAlbum(uri, json) {
   return {
     type: RECEIVE_ALBUM,
     data: json,
-    id,
+    uri,
   };
 }
 
-export function fetchAlbum(id) {
+export function fetchAlbum(uri) {
   return dispatch => {
-    dispatch(requestAlbum(id));
+    dispatch(requestAlbum(uri));
 
-    return getAlbum(id)
-      .then(json => dispatch(receiveAlbum(id, json)))
+    return getAlbum(uri)
+      .then(json => dispatch(receiveAlbum(uri, json)))
       .catch(err => {
         throw err;
       });

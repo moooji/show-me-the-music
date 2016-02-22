@@ -15,29 +15,29 @@ const Album = React.createClass({
   },
   mixins: [PureRenderMixin],
   componentWillMount() {
-    const albumId = this.props.albumId;
-    this.props.dispatch(fetchAlbum(albumId));
+    const albumUri = this.props.albumUri;
+    this.props.dispatch(fetchAlbum(albumUri));
   },
 
   componentWillReceiveProps(nextProps) {
-    const albumId = this.props.albumId;
-    if (nextProps.albumId !== albumId) {
-      this.props.dispatch(fetchAlbum(nextProps.albumId));
+    const albumUri = this.props.albumUri;
+    if (nextProps.albumUri !== albumUri) {
+      this.props.dispatch(fetchAlbum(nextProps.albumUri));
     }
   },
 
-  renderSongs(songs) {
-    if (!songs.length) {
+  renderTracks(trackUris) {
+    if (!trackUris.length) {
       return (null);
     }
 
-    return songs.map((songId) => {
-      return (<div>{songId}</div>);
+    return trackUris.map((trackUri) => {
+      return (<div key={trackUri}>{trackUri}</div>);
     });
   },
 
   render() {
-    const { album, songs } = this.props;
+    const { album, tracks } = this.props;
 
     if (!album) {
       return (null);
@@ -46,13 +46,13 @@ const Album = React.createClass({
     return (
       <div>
         <header>
-          <Link to="/"><h1>{album.title}<br/>{album.artist}</h1></Link>
+          <Link to="/"><h1>{album.name}<br/>{album.artists}</h1></Link>
         </header>
         <section className="track-container">
-          <h2>{album.title}</h2>
-          <h3>{album.artist}</h3>
+          <h2>{album.name}</h2>
+          <h3>{album.artists}</h3>
         </section>
-        {this.renderSongs(album.songs)}
+        {this.renderTracks(album.trackUris)}
         <AlbumVisualizer width={1024} height={512} data={[1, 2, 3]}/>
       </div>
     );
@@ -60,20 +60,17 @@ const Album = React.createClass({
 });
 
 function mapStateToProps(state, props) {
-  const albumId = props.params.albumId;
-  const album = state.albums[albumId];
-  let songs = [];
+  const albumUri = props.params.albumUri;
+  const album = state.albums[albumUri];
+  let tracks = [];
 
-  if (album && album.songs.length) {
-    songs = album.songIds.map((songId) => {
-      return state.songs[songId];
+  if (album && album.trackUris.length) {
+    tracks = album.trackUris.map((trackUri) => {
+      return state.tracks[trackUri];
     });
   }
 
-  return {
-    album,
-    songs,
-  };
+  return { albumUri, album, tracks };
 }
 
 export default connect(mapStateToProps)(Album);

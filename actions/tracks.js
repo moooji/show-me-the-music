@@ -3,27 +3,27 @@ import { getTrack } from '../lib/api';
 export const REQUEST_TRACK = 'REQUEST_TRACK';
 export const RECEIVE_TRACK = 'RECEIVE_TRACK';
 
-function requestTrack(id) {
+function requestTrack(uri) {
   return {
     type: REQUEST_TRACK,
-    id,
+    uri,
   };
 }
 
-function receiveTrack(id, json) {
+function receiveTrack(uri, json) {
   return {
     type: RECEIVE_TRACK,
     data: json,
-    id,
+    uri,
   };
 }
 
-export function fetchTrack(id) {
+export function fetchTrack(uri) {
   return dispatch => {
-    dispatch(requestTrack(id));
+    dispatch(requestTrack(uri));
 
-    return getTrack(id)
-      .then(json => dispatch(receiveTrack(id, json)))
+    return getTrack(uri)
+      .then(json => dispatch(receiveTrack(uri, json)))
       .catch(err => {
         throw err;
       });

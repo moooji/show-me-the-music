@@ -23,6 +23,7 @@ if (isDevelopment) {
 const routes = [
   '/',
   '/tracks*',
+  '/albums*',
 ];
 
 app.use(cors());

@@ -11,7 +11,7 @@ function tracks(state = {}, action) {
 
     case RECEIVE_TRACK: {
       return Object.assign({}, state.items, {
-        [action.id]: action.data,
+        [action.uri]: action.data,
       });
     }
 

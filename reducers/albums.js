@@ -11,7 +11,7 @@ function albums(state = {}, action) {
 
     case RECEIVE_ALBUM: {
       return Object.assign({}, state.items, {
-        [action.id]: action.data,
+        [action.uri]: action.data,
       });
     }
 

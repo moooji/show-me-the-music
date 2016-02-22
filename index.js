@@ -16,8 +16,8 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <Route path="tracks/:trackId" component={Track}/>
-        <Route path="albums/:albumId" component={Album}/>
+        <Route path="tracks/:trackUri" component={Track}/>
+        <Route path="albums/:albumUri" component={Album}/>
       </Route>
     </Router>
   </Provider>,
