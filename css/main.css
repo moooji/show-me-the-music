@@ -224,7 +224,8 @@ footer {
 }
 
 .track-loading-indicator {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
+  margin-left: -1px;
 }
 
 .pulse {
@@ -232,6 +233,7 @@ footer {
   height: 25px;
   background-color: #FFF;
   border-radius: 100%;
+  display: inline-block;
   -webkit-animation: scaleout 1.0s infinite ease-in-out;
   animation: scaleout 1.0s infinite ease-in-out;
   -webkit-animation-delay: 0.0s;

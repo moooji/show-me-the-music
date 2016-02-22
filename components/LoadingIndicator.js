@@ -5,12 +5,17 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 const LoadingIndicator = React.createClass({
   propTypes: {
+    message: React.PropTypes.string,
     isLoading: React.PropTypes.bool.isRequired,
   },
   mixins: [PureRenderMixin],
 
   render() {
-    return this.props.isLoading ? <div className="pulse"></div> : null;
+    if (!this.props.isLoading) {
+      return (null);
+    }
+
+    return (<div className="pulse"/>);
   },
 });
 
